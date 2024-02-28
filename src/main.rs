@@ -68,7 +68,7 @@ fn main() {
 fn check_contents(path: &str, text: &str, case_insensitive: bool) {
     if let Ok(contents) = fs::read_to_string(path) {
         for line in contents.split("\n") {
-            if line.contains(text) && case_insensitive {
+            if line.contains(text) && case_insensitive == false {
                 println!("{}:", path);
                 println!("{}", line);
             } else if line
