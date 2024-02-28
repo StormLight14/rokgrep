@@ -1,4 +1,5 @@
 use clap::Parser;
+use colored::Colorize;
 use std::fs;
 use std::fs::metadata;
 use std::io::ErrorKind;
@@ -77,7 +78,10 @@ fn check_contents(path: &str, text: &str, case_insensitive: bool) {
         }
         for line in contents.split("\n") {
             if line.contains(text.as_str()) {
-                println!("{}", line);
+                println!(
+                    "{}",
+                    line.replace(text.as_str(), text.red().to_string().as_str())
+                );
             }
         }
     }
