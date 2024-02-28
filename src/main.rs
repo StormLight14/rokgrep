@@ -48,8 +48,18 @@ fn main() {
                 }
             }
         } else {
-            while let Ok(path) = fs::read_dir(&args.path) {
-                println!("{:?}", path);
+            if let Ok(entries) = fs::read_dir(&args.path) {
+                for entry in entries {
+                    if let Ok(entry) = entry {
+                        if entry.metadata().unwrap().is_file() {
+                            check_contents(
+                                entry.path().to_str().unwrap(),
+                                &args.text,
+                                args.case_insensitive,
+                            );
+                        }
+                    }
+                }
             }
         }
     }
@@ -59,12 +69,14 @@ fn check_contents(path: &str, text: &str, case_insensitive: bool) {
     if let Ok(contents) = fs::read_to_string(path) {
         for line in contents.split("\n") {
             if line.contains(text) && case_insensitive {
+                println!("{}:", path);
                 println!("{}", line);
             } else if line
                 .to_ascii_lowercase()
                 .contains(text.to_ascii_lowercase().as_str())
                 && case_insensitive
             {
+                println!("{}:", path);
                 println!("{}", line)
             }
         }
