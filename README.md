@@ -1,5 +1,5 @@
 # Rokgrep
-A light and simple grep clone made with Rust
+A light and simple grep clone made with Rust.
 
 ## Usage
 ```
