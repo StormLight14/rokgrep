@@ -66,18 +66,18 @@ fn main() {
 }
 
 fn check_contents(path: &str, text: &str, case_insensitive: bool) {
+    let text = match case_insensitive {
+        true => text.to_ascii_lowercase(),
+        false => text.to_string(),
+    };
+
     if let Ok(contents) = fs::read_to_string(path) {
+        if contents.contains(text.as_str()) {
+            println!("{}:", path);
+        }
         for line in contents.split("\n") {
-            if line.contains(text) && case_insensitive == false {
-                println!("{}:", path);
+            if line.contains(text.as_str()) {
                 println!("{}", line);
-            } else if line
-                .to_ascii_lowercase()
-                .contains(text.to_ascii_lowercase().as_str())
-                && case_insensitive
-            {
-                println!("{}:", path);
-                println!("{}", line)
             }
         }
     }
