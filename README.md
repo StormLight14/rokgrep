@@ -1,5 +1,5 @@
 # Rokgrep
-A light and (very) simple grep clone made with Rust.
+A light and simple grep clone made with Rust.
 
 If you're looking for something a little more useful, check out [ripgrep](https://github.com/BurntSushi/ripgrep).
 
